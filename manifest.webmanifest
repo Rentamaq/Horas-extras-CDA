@@ -1,0 +1,16 @@
+{
+  "name": "Horas Extras CDA · Rentamaq",
+  "short_name": "HH.EE CDA",
+  "description": "Solicitud y autorización de horas extras – Rentamaq CDA",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FAFAFA",
+  "theme_color": "#333333",
+  "lang": "es-CL",
+  "icons": [
+    { "src": "img/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "img/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}
