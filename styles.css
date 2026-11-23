@@ -107,6 +107,12 @@ dialog{border:0;border-radius:12px;padding:0;width:min(440px,calc(100vw - 32px))
 dialog::backdrop{background:rgba(30,30,30,.55)}
 dialog form{padding:18px;display:flex;flex-direction:column;gap:12px}
 dialog h2{margin:0;font-size:19px;color:var(--gris);border-bottom:3px solid var(--naranjo);padding-bottom:8px}
+dialog.dlg-ancho{width:min(720px,calc(100vw - 32px));max-height:calc(100vh - 32px)}
+.actions-split{align-items:center;flex-wrap:wrap}
+.actions-split .spacer{flex:1}
+.error{color:var(--no);font-weight:700;margin:0}
+.btn-editar{background:#fff;color:var(--gris);border-color:var(--borde);padding:6px 12px;font-size:13px}
+.btn-editar:hover{border-color:var(--gris)}
 
 #toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%) translateY(120px);background:var(--gris);color:#fff;padding:12px 18px;border-radius:10px;font-weight:600;max-width:calc(100vw - 32px);transition:transform .25s;z-index:50;box-shadow:0 6px 20px rgba(0,0,0,.25)}
 #toast.show{transform:translateX(-50%) translateY(0)}

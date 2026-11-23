@@ -1,6 +1,6 @@
 // Service worker: permite abrir la página y registrar horas sin conexión.
-const CACHE = "hhee-cda-v2"; // subir el número al publicar cambios
-const XLSX_URL = "https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js";
+const CACHE = "hhee-cda-v3"; // subir el número al publicar cambios
+const LIB_URL = "https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js";
 const SHELL = [
   "./", "index.html", "styles.css", "app.js", "config.js", "manifest.webmanifest",
   "img/logo-rentamaq.png", "img/icon-192.png", "img/icon-512.png",
@@ -10,7 +10,7 @@ self.addEventListener("install", (e) => {
   e.waitUntil((async () => {
     const c = await caches.open(CACHE);
     await c.addAll(SHELL);
-    try { const res = await fetch(new Request(XLSX_URL, { mode: "no-cors" })); await c.put(XLSX_URL, res); } catch (_) {}
+    try { const res = await fetch(new Request(LIB_URL, { mode: "no-cors" })); await c.put(LIB_URL, res); } catch (_) {}
     self.skipWaiting();
   })());
 });
@@ -28,7 +28,7 @@ self.addEventListener("fetch", (e) => {
   const url = new URL(req.url);
   // Nunca cachear la planilla central
   if (url.hostname.endsWith("google.com") || url.hostname.endsWith("googleusercontent.com")) return;
-  if (url.origin !== location.origin && req.url !== XLSX_URL) return;
+  if (url.origin !== location.origin && req.url !== LIB_URL) return;
 
   // Red primero (para recibir actualizaciones), caché si no hay señal
   e.respondWith((async () => {

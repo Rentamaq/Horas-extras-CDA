@@ -33,7 +33,7 @@
 
 <nav class="tabs wrap" role="tablist">
   <button class="tab active" data-tab="solicitud" role="tab">Nueva solicitud</button>
-  <button class="tab" data-tab="registros" role="tab">Registros y aprobación <span id="pendCount" class="badge" hidden>0</span></button>
+  <button class="tab" data-tab="registros" role="tab"><span id="candado" aria-hidden="true">🔒</span> Registros y aprobación <span id="pendCount" class="badge" hidden>0</span></button>
 </nav>
 
 <main class="wrap">
@@ -89,6 +89,7 @@
         <a id="btnPlanilla" class="btn btn-ghost" target="_blank" rel="noopener" hidden>Ver planilla en línea</a>
         <button id="btnSync" class="btn btn-ghost" type="button">Sincronizar</button>
         <button id="btnExcel" class="btn btn-primary" type="button">Descargar Excel</button>
+        <button id="btnSalir" class="btn btn-ghost" type="button">Cerrar sesión</button>
       </div>
     </div>
     <p id="resumen" class="muted"></p>
@@ -99,7 +100,7 @@
 
 <footer class="foot wrap">
   <span>Rentamaq · Contrato CDA · Control de horas extras</span>
-  <button id="btnConfig" class="linkish" type="button">Configuración</button>
+  <button id="btnConfig" class="linkish" type="button" hidden>Configuración</button>
 </footer>
 
 <!-- Plantilla de línea de horas -->
@@ -170,9 +171,57 @@
   </form>
 </dialog>
 
+<!-- Diálogo de acceso administrador -->
+<dialog id="dlgLogin">
+  <form method="dialog" id="formLogin">
+    <h2>🔒 Acceso administrador</h2>
+    <p class="muted">La sección de registros y aprobación es solo para el administrador.</p>
+    <label>Clave
+      <input id="loginClave" type="password" autocomplete="current-password" required>
+    </label>
+    <p id="loginError" class="error" hidden>Clave incorrecta</p>
+    <div class="actions">
+      <button type="button" class="btn btn-ghost js-cerrar">Cancelar</button>
+      <button value="ok" class="btn btn-primary">Ingresar</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- Diálogo de edición (administrador) -->
+<dialog id="dlgEditar" class="dlg-ancho">
+  <form method="dialog" id="formEditar" novalidate>
+    <h2>Editar registro</h2>
+    <div class="grid">
+      <label>Nombre del trabajador<input name="nombre" required></label>
+      <label>RUT del trabajador<input name="rut" required></label>
+      <label>Cargo<input name="cargo" required list="dl-cargo"></label>
+      <label>Supervisor a cargo<input name="supervisor" required list="dl-supervisor"></label>
+      <label>Turno<input name="turno" required list="dl-turno"></label>
+      <label>Área<input name="area" required list="dl-area"></label>
+      <label class="span2">Actividad<textarea name="actividad" rows="2" required></textarea></label>
+      <label>Fecha<input name="fecha" type="date" required></label>
+      <label>Solicitante Teck<input name="solicitanteTeck" required list="dl-teck"></label>
+      <label>Hora inicio<input name="inicio" type="time" required></label>
+      <label>Hora término<input name="fin" type="time" required></label>
+      <label>Estado
+        <select name="estado"><option>Pendiente</option><option>Aprobado</option><option>Rechazado</option></select>
+      </label>
+      <label>Autorizado por<input name="autorizadoPor"></label>
+      <label class="span2">Observación<input name="observacion"></label>
+    </div>
+    <p class="horas muted" id="editHoras"></p>
+    <div class="actions actions-split">
+      <button type="button" id="btnEliminar" class="btn btn-rechazar">Eliminar</button>
+      <span class="spacer"></span>
+      <button type="button" class="btn btn-ghost js-cerrar">Cancelar</button>
+      <button value="ok" class="btn btn-primary">Guardar cambios</button>
+    </div>
+  </form>
+</dialog>
+
 <div id="toast" role="status" aria-live="polite"></div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js"></script>
 <script src="config.js"></script>
 <script src="app.js"></script>
 </body>
